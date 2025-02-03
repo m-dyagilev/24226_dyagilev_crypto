@@ -4,7 +4,7 @@
 
 Сборка - make
 
-# Демонстрация
+# Демонстрация - demo.gif
 
 ![demo.gif](demo.gif)
 
