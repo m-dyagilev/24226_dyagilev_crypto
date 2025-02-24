@@ -1,3 +1,5 @@
 .vscode
 *.out
-*.txt
+*2/*.txt
+*3/enc*.txt
+*3/dec*.txt
