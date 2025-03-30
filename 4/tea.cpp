@@ -150,19 +150,18 @@ int main(int argc, char** argv) {
     std::filesystem::path keyPath(argv[2]);
     std::ifstream keyfile(keyPath, std::ios::binary | std::ios::in);
     if (!keyfile.is_open()) {
-        std::cerr << "Cannot open key file " << argv[1] << std::endl;
+        std::cerr << "Cannot open key file " << argv[2] << std::endl;
         return FILE_NOT_OPENED;
     }
-    std::filesystem::path inputPath(argv[3]);
     std::ifstream input(argv[3], std::ios::binary | std::ios::in);
     if (!input.is_open()) {
-        std::cerr << "Cannot open input file " << argv[2] << std::endl;
+        std::cerr << "Cannot open input file " << argv[3] << std::endl;
         keyfile.close();
         return FILE_NOT_OPENED;
     }
     std::ofstream output(argv[4], std::ios::binary | std::ios::out);
     if (!output.is_open()) {
-        std::cerr << "Cannot open output file " << argv[3] << std::endl;
+        std::cerr << "Cannot open output file " << argv[4] << std::endl;
         keyfile.close();
         input.close();
         return FILE_NOT_OPENED;
