@@ -1,0 +1,12 @@
+C1 root
+C2 root
+C3 C1
+C4 C1
+C5 C2
+C6 C2
+C7 C3
+C8 C4
+C9 C4
+C10 C5
+C11 C6
+C12 C6
