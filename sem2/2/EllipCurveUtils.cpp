@@ -1,7 +1,7 @@
 #include "EllipCurveUtils.hpp"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 #include "CorrectModulus.hpp"
 #include "ExtEuc.hpp"
@@ -46,8 +46,6 @@ Point addPoints(const CurveParams& iCurveParams, const Point& iPoint1,
     return result;
 }
 
-#include <iostream>
-
 Point doublePoint(const CurveParams& iCurveParams, const Point& iPoint,
                   size_t p) {
     if (0 == iPoint.x && 0 == iPoint.y) {
@@ -64,8 +62,6 @@ Point doublePoint(const CurveParams& iCurveParams, const Point& iPoint,
         throw std::logic_error("Inversion failed");
     }
     size_t k = modulus(num * invDenom, p);
-    // std::cout << "<num, denom, invDenom, k>: <" << num << ", " << denom 
-    // << ", " << invDenom << ", " << k << ">" << std::endl;
     Point result;
     result.x = modulus(modulus(k * k, p) - modulus(2 * iPoint.x, p), p);
     result.y =
@@ -79,18 +75,6 @@ Point doublePoint(const CurveParams& iCurveParams, const Point& iPoint,
 
 Point mComposePoint(const CurveParams& iCurveParams, const Point& iPoint,
                     size_t p, size_t m) {
-    // Point result{0, 0};
-    // while (0 < m) {
-    //     std::cout << m << std::endl;
-    //     std::cout << "result pre: " << result << std::endl;
-    //     result = doublePoint(iCurveParams, result, p);
-    //     std::cout << "result 1: " << result << std::endl;
-    //     if (m & BIT(i)) {
-    //         result = addPoints(iCurveParams, result, iPoint, p);
-    //         std::cout << "result 2: " << result << std::endl;
-    //     }
-    // }
-    // return result;
     Point result{0, 0};
     if (0 == iPoint.x && 0 == iPoint.y) {
         return result;
@@ -101,23 +85,18 @@ Point mComposePoint(const CurveParams& iCurveParams, const Point& iPoint,
         mCopy >>= 1;
         numBits++;
     }
-    // std::cout << m << " is " << numBits << " long" << std::endl;
     for (size_t i = numBits; i > 0; --i) {
-        // std::cout << i << std::endl;
-        // std::cout << "result pre: " << result << std::endl;
         result = doublePoint(iCurveParams, result, p);
-        // std::cout << "result 1: " << result << std::endl;
         if (m & BIT((i - 1))) {
             result = addPoints(iCurveParams, result, iPoint, p);
-            // std::cout << "result 2: " << result << std::endl;
         }
     }
     return result;
 }
 
 std::vector<Point> getAllPoints(const CurveParams& iCurveParams, size_t p) {
-    assert(0 != 4 * iCurveParams.a * iCurveParams.a * iCurveParams.a
-            + 27 * iCurveParams.b * iCurveParams.b);
+    assert(0 != 4 * iCurveParams.a * iCurveParams.a * iCurveParams.a +
+                    27 * iCurveParams.b * iCurveParams.b);
     std::vector<Point> result;
     for (size_t i = 0; i < p; ++i) {
         for (size_t j = 0; j < p; ++j) {
